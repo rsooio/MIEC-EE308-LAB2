@@ -1,0 +1,113 @@
+<div class="background">
+  <!-- <button class="login-button"></button> -->
+  <button (click)="login()" class="button login-button">登录</button>
+  <div class="modes">
+    <button class="button mode-button">排位赛</button>
+    <button (click)="roomModal = true" class="button mode-button">友人场</button>
+    <button (click)="localModal = true" class="button mode-button">本地局</button>
+  </div>
+  <router-outlet></router-outlet>
+  <p class="copyright">Copyright © 2022 Zhang Z.Y. and Bai Z.W. All rights reserved.</p>
+</div>
+
+<div *ngIf="loginModal" @fade class="modal">
+  <div class="modal-content">
+    <span (click)="loginModal = false" class="close">&times;</span>
+    <div class="inputbox">
+      <div class="inputmode">
+        <a (click)="loginModalMode = 'login'" class="selector"
+          [ngClass]="loginModalMode == 'login' ? 'selected-selector' : 'unselect-selector'">登录</a>
+        <a (click)="loginModalMode = 'register'" class="selector"
+          [ngClass]="loginModalMode == 'register' ? 'selected-selector' : 'unselect-selector'">注册</a>
+      </div>
+      <div *ngIf="loginModalMode == 'login'" class="loginbox">
+        <!-- <div class="login-inputs"> -->
+        <input placeholder="用户名">
+        <input placeholder="密  码" type="password">
+        <div class="login-confirm-buttons">
+          <button class="button login-buttons" id="login-button">登录</button>
+          <button class="button login-buttons" id="login-guest">游客登录</button>
+        </div>
+        <!-- </div> -->
+        <!-- <div class="login-confirm">
+
+          <div class="login-conditions">
+            <div class="checkbox">
+              <input class="checkbox-box" type="checkbox">
+              <p class="checkbox-text">自动登录</p>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <div *ngIf="loginModalMode == 'register'" class="loginbox">
+        <input placeholder="邮  箱" type="email">
+        <input placeholder="用户名">
+        <input placeholder="密  码" type="password">
+        <button class="button" id="register-button">注册</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="roomModal" @fade class="modal">
+  <div class="modal-content">
+    <span (click)="roomModal = false" class="close">&times;</span>
+    <div class="inputbox">
+      <div class="inputmode">
+        <a (click)="roomModalMode = 'rooms'" class="selector" [ngClass]="roomModalMode == 'rooms' ? 'selected-selector' : 'unselect-selector'">我的房间</a>
+        <a (click)="roomModalMode = 'join'" class="selector" [ngClass]="roomModalMode == 'join' ? 'selected-selector' : 'unselect-selector'">加入房间</a>
+      </div>
+      <div *ngIf="roomModalMode == 'rooms'" class="roombox">
+        <div class="room room-clickable">
+          <p class="room-name">新建房间</p>
+          <div class="room-info">
+            <p class="room-id">房间号: xxxxxx</p>
+            <p class="room-player">在线人数：x/x</p>
+          </div>
+        </div>
+        <div class="room room-clickable" *ngFor="let room of rooms; let i = index">
+          <p class="room-name">{{i+1}}. {{room.name}}</p>
+          <div class="room-info">
+            <p class="room-id">房间号: {{room.id}}</p>
+            <p class="room-player">在线人数：3/{{room.player}}</p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="roomModalMode == 'join'" class="roombox">
+        <div class="room">
+          <input id="search" placeholder="房间号">
+          <button class="button join-button">加入</button>
+        </div>
+        <div class="room" *ngFor="let room of invites; let i = index">
+          <p class="room-name">{{i+1}}. {{room.name}}</p>
+          <div class="invite-buttons">
+            <button class="button accept-button">接受</button>
+            <button class="button refuse-button">拒<br>绝</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="localModal" @fade class="modal">
+  <div class="modal-content">
+    <span (click)="localModal = false" class="close">&times;</span>
+    <div class="inputbox">
+      <div class="inputmode">
+        <p class="selector selected-selector">添加玩家</p>
+      </div>
+      <div class="player-join">
+        <input type="text" [(ngModel)]="playerNameInput" id="player-input" placeholder="玩家名称">
+        <button (click)="addPlayer()" class="button player-join-button">添加</button>
+      </div>
+      <div class="players">
+        <div class="player" [ngStyle]="{'grid-template-rows': 'repeat('+playerRows+', 3rem)'}" *ngFor="let player of players; let i = index">
+          <p class="player-name">{{i+1}}. {{player.name}}</p>
+          <span (click)="delPlayer(i)" class="remove">&times;</span>
+        </div>
+      </div>
+      <button class="button start-game">开始游戏</button>
+    </div>
+  </div>
+</div>
