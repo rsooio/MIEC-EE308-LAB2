@@ -1,0 +1,19 @@
+<div class="background">
+  <!-- <p class="current-player">当前玩家：{{currentPlayer.name}}</p> -->
+  <div></div>
+  <button [ngStyle]="{'pointer-events': running ? 'none' : 'all'}" (mousedown)="throwPrepare()" (click)="throw($event)"
+    class="button throw-button">投掷骰子</button>
+  <!-- <span class="scale-text">666</span> -->
+</div>
+
+<app-dice3d class="playbox"></app-dice3d>
+
+<div class="player">
+  <!-- <div class="player-name last-player">rsooio</div> -->
+  <div class="player-name current-player">rsooio</div>
+  <!-- <div class="player-name next-player">rsooio</div> -->
+</div>
+
+<div class="ranking-list">
+  <p class="ranking-list-title">排行榜</p>
+</div>

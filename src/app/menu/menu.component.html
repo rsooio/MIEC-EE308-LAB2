@@ -1,6 +1,7 @@
 <div class="background">
   <!-- <button class="login-button"></button> -->
-  <button (click)="login()" class="button login-button">登录</button>
+  <!-- <button *ngIf="!username" (click)="loginModal = true" class="button login-button">登录</button> -->
+  <button (click)="loginModal = true" class="button user-button">{{username || "登录"}}</button>
   <div class="modes">
     <button class="button mode-button">排位赛</button>
     <button (click)="roomModal = true" class="button mode-button">友人场</button>
@@ -22,28 +23,25 @@
       </div>
       <div *ngIf="loginModalMode == 'login'" class="loginbox">
         <!-- <div class="login-inputs"> -->
-        <input placeholder="用户名">
-        <input placeholder="密  码" type="password">
-        <div class="login-confirm-buttons">
-          <button class="button login-buttons" id="login-button">登录</button>
-          <button class="button login-buttons" id="login-guest">游客登录</button>
-        </div>
-        <!-- </div> -->
-        <!-- <div class="login-confirm">
-
-          <div class="login-conditions">
-            <div class="checkbox">
-              <input class="checkbox-box" type="checkbox">
-              <p class="checkbox-text">自动登录</p>
-            </div>
+        <input [(ngModel)]="loginInfo.username" placeholder="用户名" type="text">
+        <input [(ngModel)]="loginInfo.password" placeholder="密  码" type="password">
+        <div class="login-confirm-buttons-box">
+          <div class="login-confirm-buttons">
+            <button (click)="login()" class="button login-buttons" id="login-button">登录</button>
+            <button class="button login-buttons" id="login-guest">游客登录</button>
           </div>
-        </div> -->
+          <p *ngIf="loginInfo.errShow" class="error-massage">{{loginInfo.errMsg}}</p>
+        </div>
       </div>
       <div *ngIf="loginModalMode == 'register'" class="loginbox">
-        <input placeholder="邮  箱" type="email">
-        <input placeholder="用户名">
-        <input placeholder="密  码" type="password">
-        <button class="button" id="register-button">注册</button>
+        <!-- <input placeholder="邮  箱" type="email"> -->
+        <input [(ngModel)]="registerInfo.username" placeholder="用 户 名">
+        <input [(ngModel)]="registerInfo.password" placeholder="密    码" type="password">
+        <input [(ngModel)]="registerInfo.confirmPassword" placeholder="确认密码" type="password">
+        <div class="login-confirm-buttons-box">
+          <button (click)="register()" class="button" id="register-button">注册</button>
+          <p *ngIf="registerInfo.errShow" class="error-massage">{{registerInfo.errMsg}}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -54,22 +52,24 @@
     <span (click)="roomModal = false" class="close">&times;</span>
     <div class="inputbox">
       <div class="inputmode">
-        <a (click)="roomModalMode = 'rooms'" class="selector" [ngClass]="roomModalMode == 'rooms' ? 'selected-selector' : 'unselect-selector'">我的房间</a>
-        <a (click)="roomModalMode = 'join'" class="selector" [ngClass]="roomModalMode == 'join' ? 'selected-selector' : 'unselect-selector'">加入房间</a>
+        <a (click)="roomModalMode = 'rooms'" class="selector"
+          [ngClass]="roomModalMode == 'rooms' ? 'selected-selector' : 'unselect-selector'">我的房间</a>
+        <a (click)="roomModalMode = 'join'" class="selector"
+          [ngClass]="roomModalMode == 'join' ? 'selected-selector' : 'unselect-selector'">加入房间</a>
       </div>
       <div *ngIf="roomModalMode == 'rooms'" class="roombox">
         <div class="room room-clickable">
           <p class="room-name">新建房间</p>
           <div class="room-info">
-            <p class="room-id">房间号: xxxxxx</p>
-            <p class="room-player">在线人数：x/x</p>
+            <p class="room-id">房间号</p>
+            <p class="room-player">简介</p>
           </div>
         </div>
-        <div class="room room-clickable" *ngFor="let room of rooms; let i = index">
+        <div routerLink="/game/{{room.id}}" class="room room-clickable" *ngFor="let room of rooms; let i = index">
           <p class="room-name">{{i+1}}. {{room.name}}</p>
           <div class="room-info">
-            <p class="room-id">房间号: {{room.id}}</p>
-            <p class="room-player">在线人数：3/{{room.player}}</p>
+            <p class="room-id">{{room.id}}</p>
+            <p class="room-player">{{room.introduction || "暂无简介"}}</p>
           </div>
         </div>
       </div>
@@ -102,12 +102,13 @@
         <button (click)="addPlayer()" class="button player-join-button">添加</button>
       </div>
       <div class="players">
-        <div class="player" [ngStyle]="{'grid-template-rows': 'repeat('+playerRows+', 3rem)'}" *ngFor="let player of players; let i = index">
+        <div class="player" [ngStyle]="{'grid-template-rows': 'repeat('+playerRows+', 3rem)'}"
+          *ngFor="let player of players; let i = index">
           <p class="player-name">{{i+1}}. {{player.name}}</p>
           <span (click)="delPlayer(i)" class="remove">&times;</span>
         </div>
       </div>
-      <button class="button start-game">开始游戏</button>
+      <button routerLink="/game/local" class="button start-game">开始游戏</button>
     </div>
   </div>
 </div>

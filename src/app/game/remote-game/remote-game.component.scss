@@ -1,0 +1,123 @@
+.background {
+  background-image: url("/assets/main/remotebg.png");
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.playbox {
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  left: 15%;
+  top: 20%;
+}
+
+@keyframes fill-button {
+  0%,
+  100% {
+    background-position: 100%;
+  }
+
+  50% {
+    background-position: 0%;
+  }
+}
+
+.throw-button {
+  &:hover {
+    // background-image: linear-gradient(to bottom right, red, red);
+    background-color: #cc3333;
+  }
+
+  &:active {
+    animation-name: fill-button;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    // transition-timing-function: linear;
+    // background-color: #cc0000;
+  }
+
+  cursor: pointer;
+  // background-color: #ff2222;
+  background: linear-gradient(90deg, #aa0000 50%, #ff2222 50%);
+  background-size: 200%;
+  background-position: 100%;
+  font-family: "hyft";
+  color: #ffe3c2;
+  border-style: solid;
+  border-color: #ffccaa;
+  user-select: none;
+  margin-bottom: 9vh;
+  width: 40%;
+  height: 3rem;
+  border-width: 0.3rem;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  z-index: 999;
+}
+
+.player {
+  position: absolute;
+  // left: 3vw;
+  // top: 3vh;
+  background-color: #ff2222;
+  // background-color: rgba($color: #000000, $alpha: 0.4);
+  height: auto;
+  width: 15vw;
+  border-style: solid;
+  border-radius: 0 0 2rem 0;
+  border-width: 0 0.8vmin 0.8vmin 0;
+  border-color: #ffccaa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  // padding-left: 1rem;
+  user-select: none;
+}
+
+.player-name {
+  font-family: "hyft";
+}
+
+.last-player {
+  font-size: 2rem;
+  color: #ffaa99;
+}
+
+.current-player {
+  font-size: 4rem;
+  // height: 4rem;
+  line-height: 4rem;
+  color: #ffe3c2;
+}
+
+.next-player {
+  font-size: 2rem;
+  color: #ffaa99;
+}
+
+.ranking-list {
+  position: absolute;
+  right: 0.7vw;
+  top: 25vh;
+  width: 12vw;
+  height: 60vh;
+  background-color: #ff2222;
+  border-style: solid;
+  border-radius: 2rem;
+  border-width: 0.8vmin;
+  border-color: #ffccaa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'hyft';
+}
+
+.ranking-list-title {
+  color: #ffe3c2;
+  font-size: 2rem;
+  margin-top: 1rem;
+}

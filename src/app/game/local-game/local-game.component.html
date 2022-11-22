@@ -1,0 +1,33 @@
+<div class="background">
+  <p class="current-player">当前玩家：{{currentPlayer.name}}</p>
+  <div class="playbox">
+    <app-dice3d></app-dice3d>
+  </div>
+  <!-- <div class="buttonbox">
+
+  </div> -->
+  <button [ngStyle]="{'pointer-events': running ? 'none' : 'all'}" (mousedown)="throwPrepare()" (click)="throw($event)"
+    class="button throw-button">投掷骰子</button>
+  <!-- <span class="scale-text">666</span> -->
+</div>
+
+<div *ngIf="show" @fade class="modal">
+  <!-- <div class="modal-content">
+    <div class="inputbox">
+      {{text}}
+    </div>
+  </div> -->
+  <div class="modal-content">
+    <p [ngStyle]="{'font-size': 12 - case!.point * 0.6 + 'rem'}">{{case?.name}}</p>
+    <p [ngStyle]="{'font-size': 6 - case!.point * 0.3 + 'rem'}">{{getDicesLogo(case!.case)}}</p>
+  </div>
+</div>
+
+<div *ngIf="rankingList.length" class="ranking-list">
+  <p class="ranking-title">排行榜</p>
+  <div class="ranking-item" *ngFor="let player of rankingList; let i = index">
+    <p class="ranking-index">{{i+1}}</p>
+    <p class="ranking-name">{{player.name}}</p>
+    <p class="ranking-max">{{maxAward(player.score)}}</p>
+  </div>
+</div>
